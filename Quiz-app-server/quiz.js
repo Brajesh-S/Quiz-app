@@ -56,7 +56,7 @@
 
 const express = require('express');
 const db = require('./db');
-const { fetchQuizFromExternalApi } = require('./API/quizApi');
+const { fetchQuiz } = require('./API/quizApi');
 
 const router = express.Router();
 
@@ -65,7 +65,7 @@ router.get('/fetch-quiz/:type', async (req, res) => {
   const type = req.params.type;
 
   try {
-    const questions = await fetchQuizFromExternalApi(type);
+    const questions = await fetchQuiz(type);
 
     questions.forEach((q) => {
       db.query('INSERT INTO Questions (question) VALUES (?)', [q.question], (err, result) => {

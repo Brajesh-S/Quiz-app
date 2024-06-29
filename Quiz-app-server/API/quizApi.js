@@ -1,15 +1,24 @@
 const axios = require('axios');
 
-const fetchQuiz = async (type) => {
-  const url = type === 'vehicles' ?
-    'https://opentdb.com/api.php?amount=20&category=28' :
-    'https://opentdb.com/api.php?amount=20&category=21';
+const fetchQuiz = async (category) => {
+  let url;
+  if (category === 'vehicles') {
+    url = 'https://opentdb.com/api.php?amount=20&category=28';
+  } else if (category === 'sports') {
+    url = 'https://opentdb.com/api.php?amount=20&category=21';
+  } else {
+    throw new Error('Invalid category');
+  }
 
   try {
     const response = await axios.get(url);
-    return response.data.results;
+    if (response.data && response.data.results) {
+      return response.data.results;
+    } else {
+      throw new Error('No results found');
+    }
   } catch (error) {
-    console.error('Error fetching quiz:', error);
+    console.error('Error fetching quiz data:', error);
     throw error;
   }
 };
