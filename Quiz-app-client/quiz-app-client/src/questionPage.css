@@ -1,0 +1,133 @@
+/* .question-page {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .icon-button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  .end-round-button {
+    background-color: #f0f0f0;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+  
+  main {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .question-container, .options-container {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    flex: 1;
+  }
+  
+  .option {
+    display: block;
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 25px;
+    padding: 10px 20px;
+    margin: 10px 0;
+    cursor: pointer;
+  }
+  
+  footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .nav-button {
+    background-color: #f0f0f0;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+  } */
+  .question-page {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  header button {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  
+  main {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .question-container, .options-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .question-container {
+    flex: 1;
+  }
+  
+  .options-container {
+    flex: 1;
+  }
+  
+  .option {
+    display: block;
+    background-color: #f8f8f8;
+    border: 1px solid #e0e0e0;
+    border-radius: 25px;
+    padding: 10px 20px;
+    margin: 10px 0;
+    cursor: pointer;
+  }
+  
+  footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  footer button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    background-color: #f0f0f0;
+    cursor: pointer;
+  }
+  
+  footer button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }

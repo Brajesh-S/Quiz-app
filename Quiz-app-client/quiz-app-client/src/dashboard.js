@@ -1,7 +1,32 @@
-import React from 'react';
+
+import React, { useState } from 'react';
+import QuizComponent from './quiz';
+import QuestionPage from './questionPage';
+import { Link } from 'react-router-dom'
 import './dashboard.css';
 
-const dashboard = () => {
+const Dashboard = () => {
+  const [category, setCategory] = useState('');
+  const [questions, setQuestions] = useState([]);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+
+  const handleSolveChallenge = (selectedCategory) => {
+    setCategory(selectedCategory);
+  };
+
+  const handleQuestionsFetched = (fetchedQuestions) => {
+    setQuestions(fetchedQuestions);
+    setCurrentQuestionIndex(0);
+  };
+
+  const handleNextQuestion = () => {
+    setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+  };
+
+  const handlePreviousQuestion = () => {
+    setCurrentQuestionIndex((prevIndex) => Math.max(prevIndex - 1, 0));
+  };
+
   return (
     <div className="quiz-app">
       <div className="sidebar">
@@ -19,7 +44,11 @@ const dashboard = () => {
             <span>Total Questions 20</span>
             <span>Total points 100</span>
           </div>
-          <button className="solve-btn yellow">Solve Challenge</button>
+          <button className="solve-btn yellow" onClick={() => handleSolveChallenge('vehicles')}>
+            Solve Challenge
+          </button>
+    
+
         </div>
         <div className="quiz-card">
           <h3>Cybermind O Mania</h3>
@@ -27,11 +56,24 @@ const dashboard = () => {
             <span>Total Questions 20</span>
             <span>Total points 100</span>
           </div>
-          <button className="solve-btn white">Solve Challenge</button>
+          <button className="solve-btn white" onClick={() => handleSolveChallenge('sports')}>
+            Solve Challenge
+          </button>
         </div>
+        {/* {category && !questions.length && (
+          <QuizComponent category={category} onQuestionsFetched={handleQuestionsFetched} />
+        )}
+        {questions.length > 0 && (
+          <QuestionPage
+            question={questions[currentQuestionIndex].question}
+            options={[...questions[currentQuestionIndex].incorrect_answers, questions[currentQuestionIndex].correct_answer]}
+            onPrevious={handlePreviousQuestion}
+            onNext={handleNextQuestion}
+          />
+        )} */}
       </div>
     </div>
   );
 };
 
-export default dashboard;
+export default Dashboard;
