@@ -16,7 +16,30 @@
 // }
 
 // export default App;
-import React from 'react';
+// import React from 'react';
+// import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+// import Dashboard from './dashboard';
+// import QuestionPage from './questionPage';
+
+// function App() {
+//   return (
+//     <Router>
+//       <div className="app"> {/* Root element with class name 'app' */}
+//         <Routes>
+          
+//           <Route 
+//                 path="/fetch-quiz/:category" element={<QuestionPage />}>
+//           </Route> 
+//           <Route exact path="/" element={<Dashboard/>}> 
+//            </Route>
+//         </Routes>
+//       </div>
+//     </Router>
+//   );
+// }
+
+// export default App;
+
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Dashboard from './dashboard';
 import QuestionPage from './questionPage';
@@ -24,16 +47,10 @@ import QuestionPage from './questionPage';
 function App() {
   return (
     <Router>
-      <div className="app"> {/* Root element with class name 'app' */}
-        <Routes>
-          
-          <Route 
-                path="/quiz/:category" element={<QuestionPage />}>
-          </Route> 
-          <Route exact path="/" element={<Dashboard/>}> 
-           </Route>
-        </Routes>
-      </div>
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/fetch-quiz/:category" element={<QuestionPage />} />
+      </Routes>
     </Router>
   );
 }
