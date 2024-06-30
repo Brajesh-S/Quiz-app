@@ -1,20 +1,27 @@
 
-  .question-page {
 
-    margin: 0 auto;
-    padding: 20px;
-    font-family: Arial, sans-serif;
+  body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
     background-color: #f0f0f0;
-    border-radius: 10px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .question-page {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
   }
   
   header {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
     align-items: center;
-    margin-bottom: 20px;
     background-color: white;
-    padding: 10px 20px;
+    padding: 15px 20px;
     border-radius: 22px;
   }
   
@@ -36,29 +43,46 @@
   }
   
   main {
-    display: flex;
-    gap: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background-color: #F1F1F1;
+    border-radius: 22px;
+    
+    padding-top: 20px;
+    padding-bottom: 20px;
   }
   
-  .question-container, .options-container {
+  .question-container{
+     width: 90%;
     background-color: white;
-    padding: 12%;
+    padding: 20px;
+    border-radius: 10px 20px;
+  } 
+  /* .question {
+    width: 100%;
+  
+  } */
+  .options-container {
+    /* width:97%; */
+    background-color: white;
+    padding: 20px;
     border-radius: 10px;
-    flex: 1;
-
-    
   }
   
   .question-container h2 {
     margin-top: 0;
+    font-size: 24px;
   }
   
   .options-container h3 {
     margin-top: 0;
+    font-size: 18px;
+    
   }
   
   .option {
-    display: flex;
+    display: grid;
+    grid-template-columns: auto 1fr;
     align-items: center;
     background-color: white;
     border: 1px solid #e0e0e0;
@@ -73,27 +97,22 @@
   }
   
   footer {
-   
-    display: flex;
+    display: grid;
+    grid-template-columns: auto auto;
     justify-content: space-between;
-    align-items: center;
-    margin-top: 20px;
     background-color: white;
     padding: 10px 20px;
     border-radius: 22px;
-    
   }
   
   .nav-button {
     background-color: white;
-    border: none;
+    border: 1px solid #e0e0e0;
     padding: 10px 20px;
     border-radius: 20px;
     cursor: pointer;
     font-weight: bold;
   }
   
-  .nav-button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
+
+  
