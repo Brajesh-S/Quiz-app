@@ -1,0 +1,61 @@
+.result-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+  }
+  
+  .result-page h1 {
+    font-size: 2em;
+    color: #2c662d;
+    margin-bottom: 20px;
+  }
+  
+  .result-page h2 {
+    font-size: 1.5em;
+    color: #2c662d;
+    margin-bottom: 40px;
+  }
+  
+  .result-cards {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+  }
+  
+  .result-card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    width: 200px;
+  }
+  
+  .result-card h3 {
+    font-size: 1.2em;
+    color: #333333;
+    margin-bottom: 20px;
+  }
+  
+  .result-value {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #2c662d;
+  }
+  
+  .result-card .result-value:first-child {
+    color: #d9534f; /* Red color for Questions Attended */
+  }
+  
+  .result-card .result-value:last-child {
+    color: #5cb85c; /* Green color for Correct Answers */
+  }
+  
+  .result-card .result-chart {
+    margin: 20px 0;
+  }
+  
