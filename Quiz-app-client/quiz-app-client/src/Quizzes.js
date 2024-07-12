@@ -25,6 +25,8 @@ const Quizzes = () => {
         fetchQuizzes();
     }, []);
     const handleSolveChallenge = (quizId) => {
+        console.log(quizId,"quizzes.js")
+        localStorage.clear();
         navigate(`/questions/${quizId}`);
       };
 
@@ -37,7 +39,7 @@ const Quizzes = () => {
                     <h3>{quiz.quizName}</h3>
                     <div className="quiz-details">
                     <span>Total Questions {quiz.questionsCount}</span>
-                    <span>Total points {quiz.questionsCount * quiz.markPerQuestion}</span>
+                    <span>Total points {quiz.questionsCount * 5}</span>
                     </div>
                     <button onClick={() => handleSolveChallenge(quiz.id)}>Solve Challenge</button>
                 </div>

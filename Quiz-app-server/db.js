@@ -22,6 +22,7 @@ async function createTables() {
       CREATE TABLE IF NOT EXISTS Quizes (
         id INT AUTO_INCREMENT PRIMARY KEY,
         quiz_type_id INT,
+        quizName VARCHAR(255),
         FOREIGN KEY (quiz_type_id) REFERENCES QuizTypes(id)
       )
     `);
@@ -42,6 +43,18 @@ async function createTables() {
         option_text TEXT NOT NULL,
         is_correct BOOLEAN NOT NULL,
         FOREIGN KEY (questionId) REFERENCES Questions(id)
+      )
+    `);
+
+    await db.promise().query(`
+      CREATE TABLE IF NOT EXISTS MarkedAnswers (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        quizId INT,
+        questionId INT,
+        selectedOptionId INT,
+        FOREIGN KEY (quizId) REFERENCES Quizes(id),
+        FOREIGN KEY (questionId) REFERENCES Questions(id),
+        FOREIGN KEY (selectedOptionId) REFERENCES Options(id)
       )
     `);
 

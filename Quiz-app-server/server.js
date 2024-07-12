@@ -40,7 +40,6 @@ app.get('/api/questions/:quizId', async (req, res) => {
     // Query to fetch all quizzes from QuizTypes table
     const query = `SELECT * FROM Questions where quizId = ${quizId};`;
     const [questions] = await db.promise().query(query);
-    console.log(questions,'hereee')
     res.json(questions); // Send JSON response with quizzes data
   } catch (error) {
     console.error('Error fetching questions:', error);
@@ -67,41 +66,48 @@ app.post('/api/answer/submit', async (req, res) => {
   const { quizId, questionId, optionId } = req.body;
 
   try {
-    // Check if quiz is completed
-    const [quizStatus] = await db.promise().query(
-      'SELECT isCompleted FROM quizes WHERE id = ?',
+    // Check if quiz exists
+    const [quizExists] = await db.promise().query(
+      'SELECT id FROM Quizes WHERE id = ?',
       [quizId]
     );
 
-    if (quizStatus.length === 0) {
+    if (quizExists.length === 0) {
       return res.status(404).json({ error: 'Quiz not found' });
     }
 
-    if (quizStatus[0].isCompleted) {
-      return res.status(400).json({ error: 'Quiz is already completed. Answers cannot be submitted.' });
-    }
-
-    // Check if answer already submitted
-    const [submittedAnswers] = await db.promise().query(
-      'SELECT * FROM MarkedAnswers WHERE quizId = ? AND questionId = ?',
-      [quizId, questionId]
+    // Check if question exists and belongs to the quiz
+    const [questionExists] = await db.promise().query(
+      'SELECT id FROM Questions WHERE id = ? AND quizId = ?',
+      [questionId, quizId]
     );
 
-    let query;
-    if (submittedAnswers.length === 0) {
-      query = 'INSERT INTO MarkedAnswers (quizId, questionId, selectedOptionId) VALUES (?, ?, ?)';
-    } else {
-      query = 'UPDATE MarkedAnswers SET selectedOptionId = ? WHERE quizId = ? AND questionId = ?';
+    if (questionExists.length === 0) {
+      return res.status(404).json({ error: 'Question not found or does not belong to this quiz' });
     }
 
-    await db.promise().query(query, [optionId, quizId, questionId]);
-    res.status(200).send();
+    // Check if option exists and belongs to the question
+    const [optionExists] = await db.promise().query(
+      'SELECT id FROM Options WHERE id = ? AND questionId = ?',
+      [optionId, questionId]
+    );
+
+    if (optionExists.length === 0) {
+      return res.status(404).json({ error: 'Option not found or does not belong to this question' });
+    }
+
+    // If all checks pass, insert the answer
+    await db.promise().query(
+      'INSERT INTO MarkedAnswers (quizId, questionId, selectedOptionId) VALUES (?, ?, ?)',
+      [quizId, questionId, optionId]
+    );
+
+    res.status(200).json({ message: 'Answer submitted successfully' });
   } catch (error) {
     console.error('Error submitting answer:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
-
 
 app.put('/api/quiz/complete/:quizId', async (req, res) => {
   const quizId = req.params.quizId;
@@ -156,6 +162,21 @@ app.get('/api/quiz/status/:quizId', async (req, res) => {
     res.status(200).json(quizStatus);
   } catch (error) {
     console.error('Error retrieving quiz status:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+app.delete('/api/quiz/clear/:quizId', async (req, res) => {
+  const quizId = req.params.quizId;
+
+  try {
+    // Delete marked answers for the given quizId
+    const deleteQuery = 'DELETE FROM MarkedAnswers WHERE quizId = ?';
+    await db.promise().query(deleteQuery, [quizId]);
+
+    res.status(200).json({ message: 'Quiz data cleared successfully' });
+  } catch (error) {
+    console.error('Error clearing quiz data:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });

@@ -58,12 +58,12 @@
     padding: 20px;
     border-radius: 10px 20px;
   } 
-  /* .question {
+  .question {
     width: 100%;
   
-  } */
+  }
   .options-container {
-    /* width:97%; */
+    
     background-color: white;
     padding: 20px;
     border-radius: 10px;
@@ -112,7 +112,7 @@
     border-radius: 20px;
     cursor: pointer;
     font-weight: bold;
-  }
+  } 
   
 
-  
+ 

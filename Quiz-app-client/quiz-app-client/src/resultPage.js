@@ -1,13 +1,30 @@
-
-import React from 'react';
+import React, { useEffect } from 'react';
 import './resultPage.css';
 import { useLocation } from 'react-router-dom';
+import axios from 'axios';
 
 const ResultPage = () => {
   const location = useLocation();
-  const { total_question_attended, correct_answers } = location.state || {};
+  const { totalQuestions, questionsAttended, correctAnswers, quizId } = location.state || {};
 
-  if (total_question_attended === undefined || correct_answers === undefined) {
+  useEffect(() => {
+    
+    if (quizId) {
+      console.log('Sending request to clear quiz data...',quizId);
+
+      axios.delete(`http://localhost:3000/api/quiz/clear/${quizId}`)
+        .then(response => {
+          console.log(response.data.message); 
+          localStorage.removeItem('selectedAnswers'); 
+
+        })
+        .catch(error => {
+          console.error('Error clearing quiz data:', error);
+        });
+    }
+  }, [quizId]);
+  
+  if (totalQuestions === undefined || questionsAttended === undefined || correctAnswers === undefined ) {
     return <p>Loading...</p>;
   }
 
@@ -18,11 +35,15 @@ const ResultPage = () => {
       <div className="result-cards">
         <div className="result-card">
           <h3>Questions Attended</h3>
-          <div className="result-value">{total_question_attended}</div>
+          <div className="result-value">{questionsAttended}</div>
+          <div className="result-label">Total Questions Asked</div>
+          <div className="result-value">{totalQuestions}</div>
         </div>
         <div className="result-card">
           <h3>Correct Answers</h3>
-          <div className="result-value">{correct_answers}</div>
+          <div className="result-value">{correctAnswers}</div>
+          <div className="result-label">Total Questions Attended</div>
+          <div className="result-value">{questionsAttended}</div>
         </div>
       </div>
     </div>
