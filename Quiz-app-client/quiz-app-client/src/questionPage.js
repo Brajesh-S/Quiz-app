@@ -3,7 +3,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './questionPage.css';
-import Sidebar from './sidebar';
+import QuestionSidebar from './QuestionSidebar';
 
 const QuestionPage = () => {
   const { quizId } = useParams();
@@ -147,14 +147,15 @@ const QuestionPage = () => {
       </header>
 
       <main>
-      {isSidebarOpen && (
-          <Sidebar
+    
+        <div className="question-container">
+        {isSidebarOpen && (
+          <QuestionSidebar
             questions={questions}
             selectedAnswers={selectedAnswers}
             currentQuestionIndex={currentQuestionIndex}
           />
         )}
-        <div className="question-container">
           <h2>Question {currentQuestionIndex + 1}</h2>
           <p>{currentQuestion.question}</p>
         </div>

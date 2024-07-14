@@ -1,61 +1,155 @@
-.result-page {
+
+   
+   .result-page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f5f5f5;
+    font-family: Arial, sans-serif;
+  }
+  
+  .result-page-header{
+    width:95%;
+    height: 65px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 26px;
+    margin-top:20px;
+    margin-left:2%
+   
+  }
+  .result-page-footer {
+    width:95%;
+    height: 72px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 26px;
+    margin-left:2%;
+    margin-bottom:20px;
+  }
+  
+  .result-page-content {
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-    background-color: #f0f0f0;
-    font-family: Arial, sans-serif;
+    padding: 20px;
   }
   
-  .result-page h1 {
-    font-size: 2em;
+  .thank-you-title {
+    font-size: 24px;
     color: #2c662d;
     margin-bottom: 20px;
   }
   
-  .result-page h2 {
-    font-size: 1.5em;
+  .report-title {
+    font-size: 28px;
     color: #2c662d;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
   }
   
   .result-cards {
     display: flex;
     justify-content: center;
-    gap: 40px;
+    gap: 20px;
+    flex-wrap: wrap;
   }
   
   .result-card {
     background-color: #ffffff;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    text-align: center;
-    width: 200px;
+    width: 280px;
   }
   
   .result-card h3 {
-    font-size: 1.2em;
+    font-size: 18px;
     color: #333333;
     margin-bottom: 20px;
+    text-align: center;
   }
   
-  .result-value {
-    font-size: 2.5em;
+  .circle-chart {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 20px;
+    position: relative;
+  }
+  
+  .circle-chart::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50%;
+    border: 15px solid #e0e0e0;
+  }
+  
+  .circle-chart::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50%;
+    border: 15px solid;
+    border-color: inherit;
+    clip: rect(0, 150px, 150px, 75px);
+  }
+  
+  .orange::after {
+    border-color: #ff7f50;
+  }
+  
+  .green::after {
+    border-color: #4CAF50;
+  }
+  
+  .chart-value {
+    font-size: 36px;
     font-weight: bold;
-    color: #2c662d;
+    color: #333333;
+    z-index: 1;
   }
   
-  .result-card .result-value:first-child {
-    color: #d9534f; /* Red color for Questions Attended */
+  .result-details {
+    margin-top: 20px;
   }
   
-  .result-card .result-value:last-child {
-    color: #5cb85c; /* Green color for Correct Answers */
+  .detail-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
   }
   
-  .result-card .result-chart {
-    margin: 20px 0;
+  .detail-label {
+    color: #666666;
+    font-size: 14px;
   }
   
+  .detail-value {
+    color: #333333;
+    font-weight: bold;
+    font-size: 14px;
+  }
+  
+  .detail-separator {
+    height: 1px;
+    background-color: #e0e0e0;
+    margin: 10px 0;
+  }
+  
+  @media (max-width: 600px) {
+    .result-cards {
+      flex-direction: column;
+    }
+  }
