@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -11,14 +12,14 @@ const QuestionPage = () => {
   const [questions, setQuestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [options, setOptions] = useState([]);
-  const [selectedAnswers, setSelectedAnswers] = useState({})
+  const [selectedAnswers, setSelectedAnswers] = useState({});
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchQuestions = useCallback(async () => {
     try {
       setIsLoading(true);
-      console.log(quizId,"questionpage.js")
+      console.log(quizId, "questionpage.js");
       const response = await fetch(`http://localhost:3000/api/questions/${quizId}`);
       
       if (!response.ok) {
@@ -42,8 +43,19 @@ const QuestionPage = () => {
   }, []);
 
   useEffect(() => {
+    // Clear previous quiz data when the component loads
+    const clearPreviousQuizData = async () => {
+      try {
+        await axios.delete(`http://localhost:3000/api/quiz/clear/${quizId}`);
+        console.log(`Cleared data for quizId ${quizId}`);
+      } catch (error) {
+        console.error('Error clearing quiz data:', error);
+      }
+    };
+
+    clearPreviousQuizData();
     fetchQuestions();
-  }, [fetchQuestions]);
+  }, [quizId, fetchQuestions]);
 
   useEffect(() => {
     if (questions.length > 0) {
@@ -94,9 +106,8 @@ const QuestionPage = () => {
       } else {
         // Submit final results and navigate to the result page
         const resultResponse = await axios.get(`http://localhost:3000/api/quiz/status/${currentQuestion.quizId}`);
-        console.log(resultResponse.data,currentQuestion.quizId, "questionpage.js")
-        navigate('/result', { state: resultResponse.data,quizId: currentQuestion.quizId });
-        
+        console.log(resultResponse.data, currentQuestion.quizId, "questionpage.js");
+        navigate('/result', { state: resultResponse.data, quizId: currentQuestion.quizId });
       }
     } catch (error) {
       console.error('Error submitting answer:', error);
@@ -119,7 +130,6 @@ const QuestionPage = () => {
       setCurrentQuestionIndex(currentQuestionIndex - 1);
     }
   };
-  
 
   if (isLoading) {
     return <p>Loading...</p>;
@@ -147,19 +157,17 @@ const QuestionPage = () => {
       </header>
 
       <main>
-    
         <div className="question-container">
-        {isSidebarOpen && (
-          <QuestionSidebar
-            questions={questions}
-            selectedAnswers={selectedAnswers}
-            currentQuestionIndex={currentQuestionIndex}
-          />
-        )}
+          {isSidebarOpen && (
+            <QuestionSidebar
+              questions={questions}
+              selectedAnswers={selectedAnswers}
+              currentQuestionIndex={currentQuestionIndex}
+            />
+          )}
           <h2>Question {currentQuestionIndex + 1}</h2>
           <p>{currentQuestion.question}</p>
         </div>
-
 
         <div className="options-container">
           <h3>Select One Of The Following Options.</h3>

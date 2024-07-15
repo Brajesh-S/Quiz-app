@@ -1,4 +1,4 @@
-// quizRoutes.js
+// quizzes.js
 const express = require('express');
 const router = express.Router();
 const db = require('../db');
@@ -57,5 +57,5 @@ router.get('/', async (req, res) => {
       res.status(500).json({ error: 'Internal server error' });
     }
   });
-  
   module.exports = router;
+

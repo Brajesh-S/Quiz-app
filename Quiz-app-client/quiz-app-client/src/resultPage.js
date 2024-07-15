@@ -10,19 +10,19 @@ const ResultPage = () => {
   const { totalQuestions, questionsAttended, correctAnswers, quizId } = location.state || {};
 
 // not entering this use effect
-  useEffect(() => {
-    if (quizId) {
-      console.log('Sending request to clear quiz data...', quizId);
-      axios.delete(`http://localhost:3000/api/quiz/clear/${quizId}`)
-        .then(response => {
-          console.log(response.data.message);
-          localStorage.removeItem('selectedAnswers');
-        })
-        .catch(error => {
-          console.error('Error clearing quiz data:', error);
-        });
-    }
-  }, [quizId]);
+  // useEffect(() => {
+  //   if (quizId) {
+  //     console.log('Sending request to clear quiz data...', quizId);
+  //     axios.delete(`http://localhost:3000/api/quiz/clear/${quizId}`)
+  //       .then(response => {
+  //         console.log(response.data.message);
+  //         localStorage.removeItem('selectedAnswers');
+  //       })
+  //       .catch(error => {
+  //         console.error('Error clearing quiz data:', error);
+  //       });
+  //   }
+  // }, [quizId]);
 
   if (totalQuestions === undefined || questionsAttended === undefined || correctAnswers === undefined) {
     return <p>Loading...</p>;
