@@ -93,7 +93,7 @@ const QuestionPage = () => {
     try {
       // If an answer is selected, submit it
       if (selectedOptionId !== undefined) {
-        await axios.post('http://localhost:3000/api/answer/submit', {
+        await axios.post('http://localhost:3000/api/questions/answer/submit', {
           quizId: currentQuestion.quizId,
           questionId: currentQuestion.id,
           optionId: selectedOptionId
@@ -105,7 +105,7 @@ const QuestionPage = () => {
         setCurrentQuestionIndex(currentQuestionIndex + 1);
       } else {
         // Submit final results and navigate to the result page
-        const resultResponse = await axios.get(`http://localhost:3000/api/quiz/status/${currentQuestion.quizId}`);
+        const resultResponse = await axios.get(`http://localhost:3000/api/quizzes/status/${currentQuestion.quizId}`);
         console.log(resultResponse.data, currentQuestion.quizId, "questionpage.js");
         navigate('/result', { state: resultResponse.data, quizId: currentQuestion.quizId });
       }

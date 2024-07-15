@@ -4,6 +4,7 @@ const cors = require('cors');
 const quizzesRouter = require('./Routes/quizzes');
 const questionsRouter = require('./Routes/questions');
 const optionsRouter = require('./Routes/options');
+const db = require('./db');
 
 const app = express();
 const port = 3000;
