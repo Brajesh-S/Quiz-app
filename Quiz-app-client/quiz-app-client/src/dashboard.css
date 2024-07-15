@@ -1,5 +1,3 @@
-
-
 .quiz-app {
   display: flex;
   height: 100vh;
@@ -21,9 +19,21 @@
   font-size: 24px;
   margin-bottom: 20px;
   color: #6366f1;
-
 }
-
+.header-div {
+  width: 97%;
+  height: 96px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 24px;
+  margin-top: 0px;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  font-size: 17px;
+  font-weight: lighter;
+}
 .menu-item {
   display: flex;
   margin-top: 50px;
@@ -46,18 +56,35 @@
   margin-bottom: 20px;
 }
 
+.quizzes-container {
+  width: 75%;
+}
+.text,
+.texts {
+  display: flex;
+  color: rgba(100, 100, 100, 0.805);
+  padding: 20px;
+  justify-content: flex-end;
+}
+
+.texts {
+  padding-right: 0;
+}
 .quiz-card {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: flex-start;
   background-color: #ffffff;
   border-radius: 16px;
   padding: 20px;
   margin-bottom: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease; 
-  
+  transition: background-color 0.3s ease;
 }
 .quiz-card:hover {
   border: 1px solid rgba(255, 245, 55, 0.237);
-  background-color: #fdeba381; 
+  background-color: #fdeba381;
 }
 
 .quiz-card h3 {
@@ -67,6 +94,7 @@
 
 .quiz-details {
   display: flex;
+  align-items: end;
   justify-content: space-between;
   margin-bottom: 15px;
   font-size: 14px;
@@ -78,14 +106,15 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-weight:small;
+  font-weight: small;
   font-size: 12px;
   transition: background-color 0.3s ease;
   background-color: transparent;
   border: 1px solid rgba(64, 64, 64, 0.237);
+  margin-top: 1%;
 }
 .solve-btn:hover {
-  background-color: #eaa123a5; 
+  background-color: #eaa123a5;
 }
 
 .yellow {
@@ -95,4 +124,7 @@
 .white {
   background-color: #ffffff;
   border: 1px solid #ccc;
+}
+.quiz-info {
+  flex-grow: 1;
 }

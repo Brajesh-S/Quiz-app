@@ -1,9 +1,7 @@
-
-
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Dashboard from './dashboard';
-import QuestionPage from './questionPage';
-import ResultPage from './resultPage';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Dashboard from "./dashboard";
+import QuestionPage from "./questionPage";
+import ResultPage from "./resultPage";
 
 function App() {
   return (
@@ -18,4 +16,3 @@ function App() {
 }
 
 export default App;
-

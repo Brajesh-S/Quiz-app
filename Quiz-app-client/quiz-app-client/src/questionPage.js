@@ -1,10 +1,8 @@
-
-
-import React, { useState, useEffect, useCallback } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import './questionPage.css';
-import QuestionSidebar from './QuestionSidebar';
+import React, { useState, useEffect, useCallback } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
+import "./questionPage.css";
+import QuestionSidebar from "./QuestionSidebar";
 
 const QuestionPage = () => {
   const { quizId } = useParams();
@@ -20,36 +18,39 @@ const QuestionPage = () => {
     try {
       setIsLoading(true);
       console.log(quizId, "questionpage.js");
-      const response = await fetch(`http://localhost:3000/api/questions/${quizId}`);
-      
+      const response = await fetch(
+        `http://localhost:3000/api/questions/${quizId}`
+      );
+
       if (!response.ok) {
-        throw new Error('Failed to fetch questions');
+        throw new Error("Failed to fetch questions");
       }
       const data = await response.json();
       setQuestions(data);
       setIsLoading(false);
     } catch (error) {
-      console.error('Error fetching questions:', error);
+      console.error("Error fetching questions:", error);
     }
   }, [quizId]);
 
   const fetchOptions = useCallback(async (questionId) => {
     try {
-      const response = await axios.get(`http://localhost:3000/api/options/${questionId}`);
+      const response = await axios.get(
+        `http://localhost:3000/api/options/${questionId}`
+      );
       setOptions(response.data);
     } catch (error) {
-      console.error('Error fetching options:', error);
+      console.error("Error fetching options:", error);
     }
   }, []);
 
   useEffect(() => {
-    // Clear previous quiz data when the component loads
     const clearPreviousQuizData = async () => {
       try {
         await axios.delete(`http://localhost:3000/api/quiz/clear/${quizId}`);
         console.log(`Cleared data for quizId ${quizId}`);
       } catch (error) {
-        console.error('Error clearing quiz data:', error);
+        console.error("Error clearing quiz data:", error);
       }
     };
 
@@ -65,68 +66,71 @@ const QuestionPage = () => {
   }, [currentQuestionIndex, questions, fetchOptions]);
 
   useEffect(() => {
-    const savedAnswers = JSON.parse(localStorage.getItem('selectedAnswers')) || {};
+    const savedAnswers =
+      JSON.parse(localStorage.getItem("selectedAnswers")) || {};
     setSelectedAnswers(savedAnswers);
   }, []);
 
   useEffect(() => {
-    // Clear localStorage and reset selectedAnswers when starting a new quiz
-    localStorage.removeItem('selectedAnswers');
+    localStorage.removeItem("selectedAnswers");
     setSelectedAnswers({});
   }, [quizId]);
 
   useEffect(() => {
-    localStorage.setItem('selectedAnswers', JSON.stringify(selectedAnswers));
+    localStorage.setItem("selectedAnswers", JSON.stringify(selectedAnswers));
   }, [selectedAnswers]);
 
   const handleOptionSelect = (questionId, optionId) => {
     setSelectedAnswers((prevAnswers) => ({
       ...prevAnswers,
-      [questionId]: optionId
+      [questionId]: optionId,
     }));
   };
 
   const handleNextQuestion = async () => {
     const currentQuestion = questions[currentQuestionIndex];
     const selectedOptionId = selectedAnswers[currentQuestion.id];
-  
+
     try {
-      // If an answer is selected, submit it
       if (selectedOptionId !== undefined) {
-        await axios.post('http://localhost:3000/api/questions/answer/submit', {
+        await axios.post("http://localhost:3000/api/questions/answer/submit", {
           quizId: currentQuestion.quizId,
           questionId: currentQuestion.id,
-          optionId: selectedOptionId
+          optionId: selectedOptionId,
         });
       }
-  
-      // Move to the next question if available
+
       if (currentQuestionIndex < questions.length - 1) {
         setCurrentQuestionIndex(currentQuestionIndex + 1);
       } else {
-        // Submit final results and navigate to the result page
-        const resultResponse = await axios.get(`http://localhost:3000/api/quizzes/status/${currentQuestion.quizId}`);
-        console.log(resultResponse.data, currentQuestion.quizId, "questionpage.js");
-        navigate('/result', { state: resultResponse.data, quizId: currentQuestion.quizId });
+        const resultResponse = await axios.get(
+          `http://localhost:3000/api/quizzes/status/${currentQuestion.quizId}`
+        );
+        console.log(
+          resultResponse.data,
+          currentQuestion.quizId,
+          "questionpage.js"
+        );
+        navigate("/result", {
+          state: resultResponse.data,
+          quizId: currentQuestion.quizId,
+        });
       }
     } catch (error) {
-      console.error('Error submitting answer:', error);
+      console.error("Error submitting answer:", error);
     }
   };
-  
+
   const handlePreviousQuestion = () => {
     if (currentQuestionIndex > 0) {
-      // Save the selected answer for the current question
       const currentQuestion = questions[currentQuestionIndex];
       const selectedOptionId = selectedAnswers[currentQuestion.id];
-      
-      // Update selectedAnswers with the current question's selected answer
+
       setSelectedAnswers((prevAnswers) => ({
         ...prevAnswers,
-        [currentQuestion.id]: selectedOptionId
+        [currentQuestion.id]: selectedOptionId,
       }));
-  
-      // Move to the previous question
+
       setCurrentQuestionIndex(currentQuestionIndex - 1);
     }
   };
@@ -149,10 +153,16 @@ const QuestionPage = () => {
   return (
     <div className="question-page">
       <header>
-        <button className="icon-button" onClick={() => navigate(-1)}>←</button>
-        <button className="icon-button" onClick={toggleSidebar}>☰</button>
+        <button className="icon-button" onClick={() => navigate(-1)}>
+          ←
+        </button>
+        <button className="icon-button" onClick={toggleSidebar}>
+          ☰
+        </button>
         <button className="end-round-button" onClick={handleNextQuestion}>
-          {currentQuestionIndex < questions.length - 1 ? 'End round' : 'Submit'}
+          {currentQuestionIndex < questions.length - 1
+            ? "End round"
+            : "End round"}
         </button>
       </header>
 
@@ -179,7 +189,9 @@ const QuestionPage = () => {
                   name="answer"
                   value={option.id}
                   checked={selectedOptionId === option.id}
-                  onChange={() => handleOptionSelect(currentQuestion.id, option.id)}
+                  onChange={() =>
+                    handleOptionSelect(currentQuestion.id, option.id)
+                  }
                 />
                 <span>{option.optionText}</span>
               </label>
@@ -196,11 +208,10 @@ const QuestionPage = () => {
         >
           ← Previous
         </button>
-        <button
-          className="nav-button"
-          onClick={handleNextQuestion}
-        >
-          {currentQuestionIndex < questions.length - 1 ? 'Save & Next →' : 'Submit'}
+        <button className="nav-button" onClick={handleNextQuestion}>
+          {currentQuestionIndex < questions.length - 1
+            ? "Save & Next →"
+            : "Submit"}
         </button>
       </footer>
     </div>

@@ -1,30 +1,17 @@
-
-
-import React, { useEffect } from 'react';
-import './resultPage.css';
-import { useLocation } from 'react-router-dom';
-import axios from 'axios';
+import React from "react";
+import "./resultPage.css";
+import { useLocation } from "react-router-dom";
 
 const ResultPage = () => {
   const location = useLocation();
-  const { totalQuestions, questionsAttended, correctAnswers, quizId } = location.state || {};
+  const { totalQuestions, questionsAttended, correctAnswers } =
+    location.state || {};
 
-// not entering this use effect
-  // useEffect(() => {
-  //   if (quizId) {
-  //     console.log('Sending request to clear quiz data...', quizId);
-  //     axios.delete(`http://localhost:3000/api/quiz/clear/${quizId}`)
-  //       .then(response => {
-  //         console.log(response.data.message);
-  //         localStorage.removeItem('selectedAnswers');
-  //       })
-  //       .catch(error => {
-  //         console.error('Error clearing quiz data:', error);
-  //       });
-  //   }
-  // }, [quizId]);
-
-  if (totalQuestions === undefined || questionsAttended === undefined || correctAnswers === undefined) {
+  if (
+    totalQuestions === undefined ||
+    questionsAttended === undefined ||
+    correctAnswers === undefined
+  ) {
     return <p>Loading...</p>;
   }
 

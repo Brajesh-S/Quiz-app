@@ -1,105 +1,61 @@
-// // // Quizzes.js
-// import React, { useState, useEffect } from 'react';
-// import { useNavigate } from 'react-router-dom';
-// import axios from 'axios';
-// import './dashboard.css';
-
-// const Quizzes = () => {
-//     const navigate = useNavigate();
-
-//     const [quizzes, setQuizzes] = useState([]);
-//     const [isLoading, setIsLoading] = useState(true);
-
-//     useEffect(() => {
-//         const fetchQuizzes = async () => {
-//         try {
-//             setIsLoading(true);
-//             const response = await axios.get('http://localhost:3000/api/quizzes');
-//             setQuizzes(response.data);
-//             setIsLoading(false);
-//         } catch (error) {
-//             console.error('Error fetching quizzes:', error);
-//         }
-//         };
-
-//         fetchQuizzes();
-//     }, []);
-//     const handleSolveChallenge = (quizId) => {
-//         console.log(quizId,"quizzes.js")
-//         localStorage.clear();
-//         navigate(`/questions/${quizId}`);
-//       };
-
-//   return (
-//     <div className="quizes-container">
-//         {isLoading ? 
-//             (<>Loading</>) :
-//             quizzes.map((quiz) => (
-//                 <div className="quiz-card">
-//                     <h3>{quiz.quizName}</h3>
-//                     <div className="quiz-details">
-//                     <span>Total Questions {quiz.questionsCount}</span>
-//                     <span>Total points {quiz.questionsCount * 5}</span>
-//                     </div>
-//                     <button onClick={() => handleSolveChallenge(quiz.id)}>Solve Challenge</button>
-//                 </div>
-//             ))
-//         }
-//     </div>
-//   );
-// };
-
-// export default Quizzes;
-// // Quizzes.js
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import './dashboard.css';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import "./dashboard.css";
 
 const Quizzes = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const [quizzes, setQuizzes] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
+  const [quizzes, setQuizzes] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(() => {
-        const fetchQuizzes = async () => {
-        try {
-            setIsLoading(true);
-            const response = await axios.get('http://localhost:3000/api/quizzes');
-            setQuizzes(response.data);
-            setIsLoading(false);
-        } catch (error) {
-            console.error('Error fetching quizzes:', error);
-        }
-        };
+  useEffect(() => {
+    const fetchQuizzes = async () => {
+      try {
+        setIsLoading(true);
+        const response = await axios.get("http://localhost:3000/api/quizzes");
+        setQuizzes(response.data);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching quizzes:", error);
+      }
+    };
 
-        fetchQuizzes();
-    }, []);
-    const handleSolveChallenge = (quizId) => {
-        console.log(quizId,"quizzes.js")
-        localStorage.clear();
-        navigate(`/questions/${quizId}`);
-      };
+    fetchQuizzes();
+  }, []);
+  const handleSolveChallenge = (quizId) => {
+    console.log(quizId, "quizzes.js");
+    localStorage.clear();
+    navigate(`/questions/${quizId}`);
+  };
 
   return (
     <div className="quizes-container">
-        {isLoading ? 
-            (<>Loading</>) :
-            quizzes.map((quiz) => (
-                <div className="quiz-card">
-                    <h3>{quiz.quizName}</h3>
-                    <div className="quiz-details">
-                    <span>Total Questions {quiz.questionsCount}</span>
-                    <span>Total points {quiz.questionsCount * 5}</span>
-                    </div>
-                    <button className='solve-btn' onClick={() => handleSolveChallenge(quiz.id)}>Solve Challenge</button>
-                </div>
-            ))
-        }
+      {isLoading ? (
+        <>Loading</>
+      ) : (
+        quizzes.map((quiz) => (
+          <div className="quiz-card">
+            <h3>{quiz.quizName}</h3>
+            <div className="quiz-details">
+              <div className="text">
+                <span>Total Questions: {quiz.questionsCount}</span>{" "}
+              </div>
+              <div className="texts">
+                <span>Total points: {quiz.questionsCount * 5}</span>{" "}
+              </div>
+            </div>
+            <button
+              className="solve-btn"
+              onClick={() => handleSolveChallenge(quiz.id)}
+            >
+              Solve Challenge
+            </button>
+          </div>
+        ))
+      )}
     </div>
   );
 };
 
 export default Quizzes;
-

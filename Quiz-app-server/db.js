@@ -1,5 +1,5 @@
-const mysql = require('mysql2');
-require('dotenv').config();
+const mysql = require("mysql2");
+require("dotenv").config();
 
 const db = mysql.createConnection({
   host: process.env.DB_HOST,
@@ -58,9 +58,9 @@ async function createTables() {
       )
     `);
 
-    console.log('Tables created successfully');
+    console.log("Tables created successfully");
   } catch (error) {
-    console.error('Error creating tables:', error);
+    console.error("Error creating tables:", error);
     throw error;
   }
 }
@@ -69,24 +69,24 @@ async function createTables() {
 async function insertQuestions() {
   try {
     // Insert your questions and options logic here
-    console.log('Questions inserted successfully');
+    console.log("Questions inserted successfully");
   } catch (error) {
-    console.error('Error inserting questions:', error);
+    console.error("Error inserting questions:", error);
     throw error;
   }
 }
 
 // Connect to the database
-db.connect(err => {
+db.connect((err) => {
   if (err) {
-    console.error('Database connection error:', err);
+    console.error("Database connection error:", err);
     return;
   }
-  console.log('Connected to database');
+  console.log("Connected to database");
 
   createTables()
     .then(() => insertQuestions())
-    .catch(err => console.error('Error initializing database:', err));
+    .catch((err) => console.error("Error initializing database:", err));
 });
 
 module.exports = db;
