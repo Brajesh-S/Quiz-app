@@ -6,6 +6,7 @@ const db = mysql.createConnection({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
+  
 });
 
 // Function to create tables
@@ -17,15 +18,24 @@ async function createTables() {
         type_name VARCHAR(255) NOT NULL
       )
     `);
-
     await db.promise().query(`
-      CREATE TABLE IF NOT EXISTS Quizes (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        quiz_type_id INT,
-        quizName VARCHAR(255),
-        FOREIGN KEY (quiz_type_id) REFERENCES QuizTypes(id)
-      )
-    `);
+    CREATE TABLE IF NOT EXISTS Quizes (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      quizName VARCHAR(255) NOT NULL,
+      isCompleted TINYINT(1) NOT NULL,
+      questionsCount INT NOT NULL,
+      markPerQuestion INT NOT NULL
+      FOREIGN KEY (quiz_type_id) REFERENCES QuizTypes(id)
+  );
+  `);
+    // await db.promise().query(`
+    //   CREATE TABLE IF NOT EXISTS Quizes (
+    //     id INT AUTO_INCREMENT PRIMARY KEY,
+    //     quiz_type_id INT,
+    //     quizName VARCHAR(255),
+    //     FOREIGN KEY (quiz_type_id) REFERENCES QuizTypes(id)
+    //   )
+    // `);
 
     await db.promise().query(`
       CREATE TABLE IF NOT EXISTS Questions (
