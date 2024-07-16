@@ -19,15 +19,17 @@ async function createTables() {
       )
     `);
     await db.promise().query(`
-    CREATE TABLE IF NOT EXISTS Quizes (
-      id INT AUTO_INCREMENT PRIMARY KEY,
-      quizName VARCHAR(255) NOT NULL,
-      isCompleted TINYINT(1) NOT NULL,
-      questionsCount INT NOT NULL,
-      markPerQuestion INT NOT NULL
-      FOREIGN KEY (quiz_type_id) REFERENCES QuizTypes(id)
-  );
-  `);
+      CREATE TABLE IF NOT EXISTS Quizes (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        quizName VARCHAR(255) NOT NULL,
+        isCompleted TINYINT(1) NOT NULL,
+        questionsCount INT NOT NULL,
+        markPerQuestion INT NOT NULL,
+        quiz_type_id INT,
+        FOREIGN KEY (quiz_type_id) REFERENCES QuizTypes(id)
+      )
+    `);
+    
     // await db.promise().query(`
     //   CREATE TABLE IF NOT EXISTS Quizes (
     //     id INT AUTO_INCREMENT PRIMARY KEY,
