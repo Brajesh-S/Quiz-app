@@ -9,7 +9,7 @@ const QuizComponent = ({ category }) => {
   useEffect(() => {
     const fetchQuiz = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/fetch-quiz/${category}`);
+        const response = await axios.get(`https://quiz-app-au1t.onrender.com/fetch-quiz/${category}`);
         console.log(response,'response')
         setQuestions(response.data);
         setError(''); 
