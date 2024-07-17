@@ -178,8 +178,29 @@ const QuestionPage = () => {
           <h2>Question {currentQuestionIndex + 1}</h2>
           <p>{currentQuestion.question}</p>
         </div>
-
+        
         <div className="options-container">
+        <h3>Select One Of The Following Options.</h3>
+        <div className="options-list">
+          {options.length > 0 ? (
+            options.map((option) => (
+              <label key={option.id} className="option">
+                <input
+                  type="radio"
+                  name={`answer-${currentQuestion.id}`}
+                  value={option.id}
+                  checked={selectedOptionId === option.id}
+                  onChange={() => handleOptionSelect(currentQuestion.id, option.id)}
+                />
+                <span>{option.optionText}</span>
+              </label>
+            ))
+          ) : (
+            <p>No options available.</p>
+          )}
+        </div>
+      </div>
+        {/* <div className="options-container">
           <h3>Select One Of The Following Options.</h3>
           <div className="options-list">
             {options.map((option) => (
@@ -197,7 +218,7 @@ const QuestionPage = () => {
               </label>
             ))}
           </div>
-        </div>
+        </div> */}
       </main>
 
       <footer>
