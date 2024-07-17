@@ -89,8 +89,10 @@ async function insertQuizes() {
       ('Cars', 0, 5, 5),
       ('Mobiles', 0, 5, 5)
     `);
+    console.log("Quizes inserted successfully");
   } catch (error) {
     console.error("Error inserting quizzes:", error);
+    throw error
   }
 }
 
