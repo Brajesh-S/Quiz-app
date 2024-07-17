@@ -178,18 +178,18 @@ db.connect(async (err) => {
   }
   console.log("Connected to database");
 
-  try {
-    await createTables(); // Added 'await' here
+  // try {
+  //   await createTables(); // Added 'await' here
 
-    await insertQuizTypes(); // Added 'await' here
-    await insertQuizes(); // Added 'await' here
-    await insertQuestions(); // Added 'await' here
-    await insertOptions(); // Added 'await' here
+  //   await insertQuizTypes(); // Added 'await' here
+  //   await insertQuizes(); // Added 'await' here
+  //   await insertQuestions(); // Added 'await' here
+  //   await insertOptions(); // Added 'await' here
 
-    console.log("Initialization completed successfully");
-  } catch (error) {
-    console.error("Error initializing database:", error);
-  }
+  //   console.log("Initialization completed successfully");
+  // } catch (error) {
+  //   console.error("Error initializing database:", error);
+  // }
 
   // createTables()
   //   .then(() => insertQuizTypes())
