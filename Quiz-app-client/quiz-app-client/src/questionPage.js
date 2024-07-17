@@ -38,6 +38,7 @@ const QuestionPage = () => {
       const response = await axios.get(
         `https://quiz-app-au1t.onrender.com/api/options/${questionId}`
       );
+      console.log("Fetched options:", response.data); 
       setOptions(response.data);
     } catch (error) {
       console.error("Error fetching options:", error);
@@ -64,7 +65,9 @@ const QuestionPage = () => {
       fetchOptions(currentQuestion.id);
     }
   }, [currentQuestionIndex, questions, fetchOptions]);
-
+  useEffect(() => {
+    console.log("Current options:", options); // Add this line
+  }, [options])
   useEffect(() => {
     const savedAnswers =
       JSON.parse(localStorage.getItem("selectedAnswers")) || {};
@@ -178,7 +181,7 @@ const QuestionPage = () => {
           <h2>Question {currentQuestionIndex + 1}</h2>
           <p>{currentQuestion.question}</p>
         </div>
-        
+
         <div className="options-container">
         <h3>Select One Of The Following Options.</h3>
         <div className="options-list">
