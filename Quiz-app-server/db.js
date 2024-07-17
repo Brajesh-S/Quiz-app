@@ -168,19 +168,32 @@ async function insertOptions() {
 }
 
 // Connect to the database
-db.connect((err) => {
+db.connect(async (err) => {
   if (err) {
     console.error("Database connection error:", err);
     return;
   }
   console.log("Connected to database");
 
-  createTables()
-    .then(() => insertQuizTypes())
-    .then(() => insertQuizes())
-    .then(() => insertQuestions())
-    .then(() => insertOptions())
-    .catch((err) => console.error("Error initializing database:", err));
+  try {
+    await createTables(); // Added 'await' here
+
+    await insertQuizTypes(); // Added 'await' here
+    await insertQuizes(); // Added 'await' here
+    await insertQuestions(); // Added 'await' here
+    await insertOptions(); // Added 'await' here
+
+    console.log("Initialization completed successfully");
+  } catch (error) {
+    console.error("Error initializing database:", error);
+  }
+
+  // createTables()
+  //   .then(() => insertQuizTypes())
+  //   .then(() => insertQuizes())
+  //   .then(() => insertQuestions())
+  //   .then(() => insertOptions())
+  //   .catch((err) => console.error("Error initializing database:", err));
 });
 
 module.exports = db;
