@@ -48,7 +48,7 @@ router.get("/status/:quizId", async (req, res) => {
       `SELECT COUNT(*) AS correctAnswers
          FROM MarkedAnswers ma
          INNER JOIN Options o ON ma.selectedOptionId = o.id
-         WHERE ma.quizId = ? AND o.isCorrect = 1`,
+         WHERE ma.quizId = ? AND o.is_correct = 1`,
       [quizId]
     );
     const correctAnswers = correctAnswersResult[0].correctAnswers;
