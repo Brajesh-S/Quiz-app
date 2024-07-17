@@ -68,6 +68,20 @@ async function createTables() {
   }
 }
 
+async function insertQuizTypes() {
+  try {
+    await db.promise().query(`
+      INSERT INTO QuizTypes (type_name) VALUES
+      ('cars'),
+      ('Phones')
+    `);
+    console.log("Quiz types inserted successfully");
+  } catch (error) {
+    console.error("Error inserting quiz types:", error);
+    throw error;
+  }
+}
+
 async function insertQuizes() {
   try {
     await db.promise().query(`
@@ -162,6 +176,7 @@ db.connect((err) => {
   console.log("Connected to database");
 
   createTables()
+    .then(() => insertQuizTypes())
     .then(() => insertQuizes())
     .then(() => insertQuestions())
     .then(() => insertOptions())
