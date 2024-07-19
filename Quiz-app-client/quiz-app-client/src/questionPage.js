@@ -195,7 +195,7 @@ const QuestionPage = () => {
                   checked={selectedOptionId === option.id}
                   onChange={() => handleOptionSelect(currentQuestion.id, option.id)}
                 />
-                <span>{option.optionText}</span>
+                <span>{option.option_text}</span>
               </label>
             ))
           ) : (
