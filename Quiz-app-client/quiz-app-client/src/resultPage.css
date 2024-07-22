@@ -1,6 +1,12 @@
 
-   
-   .result-page-container {
+  .loading-animation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .result-page-container {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -8,24 +14,24 @@
     font-family: Arial, sans-serif;
   }
   
-  .result-page-header{
-    width:95%;
+  .result-page-header {
+    width: 95%;
     height: 65px;
     background-color: #ffffff;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     border-radius: 26px;
-    margin-top:20px;
-    margin-left:2%
-   
+    margin-top: 20px;
+    margin-left: 2%;
   }
+  
   .result-page-footer {
-    width:95%;
+    width: 95%;
     height: 72px;
     background-color: #ffffff;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     border-radius: 26px;
-    margin-left:2%;
-    margin-bottom:20px;
+    margin-left: 2%;
+    margin-bottom: 20px;
   }
   
   .result-page-content {
@@ -80,38 +86,30 @@
     align-items: center;
     margin: 0 auto 20px;
     position: relative;
+    background: conic-gradient(
+      from 0deg,
+      var(--color) calc(var(--percentage) * 1%),
+      #e0e0e0 calc(var(--percentage) * 1%)
+    );
   }
   
   .circle-chart::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+    background-color: white;
     border-radius: 50%;
-    border: 15px solid #e0e0e0;
   }
   
-  .circle-chart::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 50%;
-    border: 15px solid;
-    border-color: inherit;
-    clip: rect(0, 150px, 150px, 75px);
+  .orange {
+    --color: #ff7f50;
   }
   
-  .orange::after {
-    border-color: #ff7f50;
-  }
-  
-  .green::after {
-    border-color: #4CAF50;
+  .green {
+    --color: #4CAF50;
   }
   
   .chart-value {
@@ -119,6 +117,7 @@
     font-weight: bold;
     color: #333333;
     z-index: 1;
+    position: relative;
   }
   
   .result-details {
@@ -153,3 +152,4 @@
       flex-direction: column;
     }
   }
+  

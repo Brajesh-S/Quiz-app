@@ -20,6 +20,18 @@
   margin-bottom: 20px;
   color: #6366f1;
 }
+
+.loading-animations {
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  width: 10%;
+  padding: 5%;
+  position: absolute;
+  top: 30%;
+  left: 25%;
+  transform: translate(-50%, -50%);
+}
 .header-div {
   width: 97%;
   height: 96px;

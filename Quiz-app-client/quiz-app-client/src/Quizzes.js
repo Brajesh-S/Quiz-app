@@ -2,7 +2,15 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./dashboard.css";
+import Lottie from "lottie-react";
 
+import loadingAnimationData from "./LoadingAnimation";
+
+const LoadingAnimation = () => (
+  <div className="loading-animations">
+    <Lottie animationData={loadingAnimationData} loop={true} />
+  </div>
+);
 const Quizzes = () => {
   const navigate = useNavigate();
 
@@ -13,7 +21,7 @@ const Quizzes = () => {
     const fetchQuizzes = async () => {
       try {
         setIsLoading(true);
-        const response = await axios.get("https://quiz-app-au1t.onrender.com/api/quizzes");
+        const response = await axios.get("https://quiz-app-client-k7i4.onrender.com/api/quizzes");
         setQuizzes(response.data);
         setIsLoading(false);
       } catch (error) {
@@ -32,7 +40,7 @@ const Quizzes = () => {
   return (
     <div className="quizes-container">
       {isLoading ? (
-        <>Loading</>
+        <LoadingAnimation />
       ) : (
         quizzes.map((quiz) => (
           <div className="quiz-card">
