@@ -14,7 +14,7 @@ app.use(
     origin: [
       "http://localhost:3001",
       "https://quiz-app-au1t.onrender.com",
-      "https://quiz-app-au1t.onrender.com/",
+      "https://quiz-app-client-k7i4.onrender.com",
     ],
     methods: ["POST", "GET", "OPTIONS", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
