@@ -21,7 +21,7 @@ const Quizzes = () => {
     const fetchQuizzes = async () => {
       try {
         setIsLoading(true);
-        const response = await axios.get("https://quiz-app-client-k7i4.onrender.com/api/quizzes");
+        const response = await axios.get("https://quiz-app-au1t.onrender.com/api/quizzes");
         setQuizzes(response.data);
         setIsLoading(false);
       } catch (error) {

@@ -30,7 +30,7 @@ const QuestionPage = () => {
       setIsLoading(true);
       console.log(quizId, "questionpage.js");
       const response = await fetch(
-        `https://quiz-app-client-k7i4.onrender.com/api/questions/${quizId}`
+        `https://quiz-app-au1t.onrender.com/api/questions/${quizId}`
       );
 
       if (!response.ok) {
@@ -47,7 +47,7 @@ const QuestionPage = () => {
   const fetchOptions = useCallback(async (questionId) => {
     try {
       const response = await axios.get(
-        `https://quiz-app-client-k7i4.onrender.com/api/options/${questionId}`
+        `https://quiz-app-au1t.onrender.com/api/options/${questionId}`
       );
       console.log("Fetched options:", response.data);
       setOptions(response.data);
@@ -59,7 +59,7 @@ const QuestionPage = () => {
   useEffect(() => {
     const clearPreviousQuizData = async () => {
       try {
-        await axios.delete(`https://quiz-app-client-k7i4.onrender.com/api/quiz/clear/${quizId}`);
+        await axios.delete(`https://quiz-app-au1t.onrender.com/api/quiz/clear/${quizId}`);
         console.log(`Cleared data for quizId ${quizId}`);
       } catch (error) {
         console.error("Error clearing quiz data:", error);
@@ -108,7 +108,7 @@ const QuestionPage = () => {
 
     try {
       if (selectedOptionId !== undefined) {
-        await axios.post("https://quiz-app-client-k7i4.onrender.com/api/questions/answer/submit", {
+        await axios.post("https://quiz-app-au1t.onrender.com/api/questions/answer/submit", {
           quizId: currentQuestion.quizId,
           questionId: currentQuestion.id,
           optionId: selectedOptionId,
@@ -119,7 +119,7 @@ const QuestionPage = () => {
         setCurrentQuestionIndex(currentQuestionIndex + 1);
       } else {
         const resultResponse = await axios.get(
-          `https://quiz-app-client-k7i4.onrender.com/api/quizzes/status/${currentQuestion.quizId}`
+          `https://quiz-app-au1t.onrender.com/api/quizzes/status/${currentQuestion.quizId}`
         );
 
         navigate("/result", {
@@ -155,7 +155,7 @@ const QuestionPage = () => {
       const selectedOptionId = selectedAnswers[currentQuestion.id];
 
       if (selectedOptionId !== undefined) {
-        await axios.post("https://quiz-app-client-k7i4.onrender.com/api/questions/answer/submit", {
+        await axios.post("https://quiz-app-au1t.onrender.com/api/questions/answer/submit", {
           quizId: currentQuestion.quizId,
           questionId: currentQuestion.id,
           optionId: selectedOptionId,
@@ -163,7 +163,7 @@ const QuestionPage = () => {
       }
 
       const resultResponse = await axios.get(
-        `https://quiz-app-client-k7i4.onrender.com/api/quizzes/status/${currentQuestion.quizId}`
+        `https://quiz-app-au1t.onrender.com/api/quizzes/status/${currentQuestion.quizId}`
       );
 
       navigate("/result", {

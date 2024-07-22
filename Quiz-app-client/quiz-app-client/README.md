@@ -9,7 +9,7 @@ In the project directory, you can run:
 ### `npm start`
 
 Runs the app in the development mode.\
-Open [https://quiz-app-client-k7i4.onrender.com](https://quiz-app-client-k7i4.onrender.com) to view it in your browser.
+Open [https://quiz-app-au1t.onrender.com](https://quiz-app-au1t.onrender.com) to view it in your browser.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
