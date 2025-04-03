@@ -2,9 +2,9 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./questionPage.css";
-import QuestionSidebar from "./QuestionSidebar";
+import QuestionSidebar from "../QuestionSidebar/QuestionSidebar";
 import Lottie from "lottie-react";
-import loadingAnimationData from "./dashboardLoading";
+import loadingAnimationData from "../../Assets/dashboardLoading.json";
 import CircularProgress from "@mui/material/CircularProgress";
 
 const QuestionPage = () => {
@@ -76,9 +76,11 @@ const QuestionPage = () => {
       fetchOptions(currentQuestion.id);
     }
   }, [currentQuestionIndex, questions, fetchOptions]);
+  
   useEffect(() => {
     console.log("Current options:", options);
   }, [options]);
+  
   useEffect(() => {
     const savedAnswers =
       JSON.parse(localStorage.getItem("selectedAnswers")) || {};
@@ -192,59 +194,82 @@ const QuestionPage = () => {
 
   return (
     <div className="question-page">
-      <header>
-        <button className="icon-button" onClick={() => navigate(-1)}>
-          ←
-        </button>
-        <button className="icon-button" onClick={toggleSidebar}>
-          ☰
-        </button>
-        <button className="end-round-button" onClick={handleEndRound}>
-          End round
-        </button>
-      </header>
+      <header className="question-header">
+        <div className="header-left">
 
-      <main>
-        <div className="question-container">
-          {isSidebarOpen && (
-            <QuestionSidebar
-              questions={questions}
-              selectedAnswers={selectedAnswers}
-              currentQuestionIndex={currentQuestionIndex}
-            />
-          )}
-          <h2>Question {currentQuestionIndex + 1}</h2>
-          <p>{currentQuestion.question}</p>
+          <button className="icon-button sidebar-toggle" onClick={toggleSidebar}>≡
+            <i className="fas fa-bars"></i>
+          </button>
         </div>
-
-        <div className="options-container">
-          <h3>Select One Of The Following Options.</h3>
-          <div className="options-list">
-            {options.length > 0 ? (
-              options.map((option) => (
-                <label key={option.id} className="option">
-                  <input
-                    type="radio"
-                    name={`answer-${currentQuestion.id}`}
-                    value={option.id}
-                    checked={selectedOptionId === option.id}
-                    onChange={() =>
-                      handleOptionSelect(currentQuestion.id, option.id)
-                    }
-                  />
-                  <span>{option.option_text}</span>
-                </label>
-              ))
-            ) : (
-              <p>No options available.</p>
-            )}
+        <div className="header-center">
+          <div className="progress-indicator">
+            <span className="progress-text">
+              Question {currentQuestionIndex + 1} of {questions.length}
+            </span>
+            <div className="progress-bar-container">
+              <div 
+                className="progress-bar" 
+                style={{ width: `${((currentQuestionIndex + 1) / questions.length) * 100}%` }}
+              ></div>
+            </div>
           </div>
         </div>
-      </main>
+        <div className="header-right">
+          <button className="end-round-button" onClick={handleEndRound}>
+            End Quiz
+          </button>
+        </div>
+      </header>
 
-      <footer>
+      <div className={`content-wrapper ${isSidebarOpen ? 'sidebar-active' : ''}`}>
+        {isSidebarOpen && (
+          <QuestionSidebar
+            questions={questions}
+            selectedAnswers={selectedAnswers}
+            currentQuestionIndex={currentQuestionIndex}
+            setCurrentQuestionIndex={setCurrentQuestionIndex}
+            closeSidebar={() => setIsSidebarOpen(false)}
+          />
+        )}
+        
+        <main className="quiz-content">
+          <div className="question-container">
+            <h2 className="question-title">Question {currentQuestionIndex + 1}</h2>
+            <p className="question-text">{currentQuestion.question}</p>
+          </div>
+
+          <div className="options-container">
+            <h3 className="options-heading">Select One Of The Following Options</h3>
+            <div className="options-list">
+              {options.length > 0 ? (
+                options.map((option) => (
+                  <label 
+                    key={option.id} 
+                    className={`option ${selectedOptionId === option.id ? 'selected' : ''}`}
+                  >
+                    <input
+                      type="radio"
+                      name={`answer-${currentQuestion.id}`}
+                      value={option.id}
+                      checked={selectedOptionId === option.id}
+                      onChange={() =>
+                        handleOptionSelect(currentQuestion.id, option.id)
+                      }
+                    />
+                    <span className="option-text">{option.option_text}</span>
+                  </label>
+                ))
+              ) : (
+                <p className="no-options-message">No options available.</p>
+              )}
+            </div>
+          </div>
+        </main>
+      </div>
+
+      <footer className="question-footer">
         <button
-          className="nav-button"
+          className={`nav-button prev-button ${currentQuestionIndex === 0 ? 'disabled' : ''}`}
           onClick={handlePreviousQuestion}
           disabled={currentQuestionIndex === 0}
         >
@@ -255,10 +280,18 @@ const QuestionPage = () => {
               size={15}
             />
           ) : (
-            "← Previous"
+            <>
+              <i className="fas fa-chevron-left"></i>
+              <span>Previous</span>
+            </>
           )}
         </button>
-        <button className="nav-button" onClick={handleNextQuestion}>
+        
+        <div className="question-indicator-mobile">
+          {currentQuestionIndex + 1} / {questions.length}
+        </div>
+        
+        <button className="nav-button next-button" onClick={handleNextQuestion}>
           {isNextButtonLoading ? (
             <CircularProgress
               className="button-loading-spinner"
@@ -266,9 +299,15 @@ const QuestionPage = () => {
               size={15}
             />
           ) : currentQuestionIndex < questions.length - 1 ? (
-            "Save & Next →"
+            <>
+              <span>Next</span>
+              <i className="fas fa-chevron-right"></i>
+            </>
           ) : (
-            "Submit"
+            <>
+              <span>Submit</span>
+              <i className="fas fa-check"></i>
+            </>
           )}
         </button>
       </footer>

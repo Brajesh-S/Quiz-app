@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "./dashboard.css";
+import "../Dashboard/dashboard.css";
 import Lottie from "lottie-react";
-
-import loadingAnimationData from "./LoadingAnimation";
+import loadingAnimationData from "../../Assets/LoadingAnimation.json";
 
 const LoadingAnimation = () => (
   <div className="loading-animations">

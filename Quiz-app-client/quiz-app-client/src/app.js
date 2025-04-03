@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Dashboard from "./dashboard";
-import QuestionPage from "./questionPage";
-import ResultPage from "./resultPage";
+import Dashboard from "./Components/Dashboard/dashboard";
+import QuestionPage from "./Components/QuestioPage/questionPage";
+import ResultPage from "./Components/ResultPage/resultPage";
 
 function App() {
   return (

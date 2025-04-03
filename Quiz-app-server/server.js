@@ -6,9 +6,8 @@ const optionsRouter = require("./Routes/options");
 const db = require("./db");
 
 const app = express();
-const port = 3000;
+const port = 3000; 
 
-// Middleware
 app.use(
   cors({
     origin: [
@@ -24,7 +23,6 @@ app.use(
 
 app.use(express.json());
 
-// Routes
 app.use("/api/quizzes", quizzesRouter);
 app.use("/api/questions", questionsRouter);
 app.use("/api/options", optionsRouter);
@@ -33,9 +31,8 @@ app.delete("/api/quiz/clear/:quizId", async (req, res) => {
   const quizId = req.params.quizId;
 
   try {
-    // Delete marked answers for the given quizId
     const deleteQuery = "DELETE FROM MarkedAnswers WHERE quizId = ?";
-    await db.promise().query(deleteQuery, [quizId]);
+    await db.query(deleteQuery, [quizId]);
 
     res.status(200).json({ message: "Quiz data cleared successfully" });
   } catch (error) {
@@ -44,7 +41,6 @@ app.delete("/api/quiz/clear/:quizId", async (req, res) => {
   }
 });
 
-// Start server
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });

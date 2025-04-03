@@ -5,7 +5,7 @@ const db = require("../db");
 router.get("/", async (req, res) => {
   try {
     const query = "SELECT * FROM Quizes;";
-    const [quizzes] = await db.promise().query(query);
+    const [quizzes] = await db.query(query);
     res.json(quizzes);
   } catch (error) {
     console.error("Error fetching quizzes:", error);
@@ -17,7 +17,7 @@ router.put("/complete/:quizId", async (req, res) => {
   const quizId = req.params.quizId;
   try {
     const updateQuery = "UPDATE quizes SET isCompleted = TRUE WHERE id = ?";
-    await db.promise().query(updateQuery, [quizId]);
+    await db.query(updateQuery, [quizId]);
     res.status(200).json({ message: "Quiz marked as completed successfully" });
   } catch (error) {
     console.error("Error marking quiz as completed:", error);
@@ -29,7 +29,6 @@ router.get("/status/:quizId", async (req, res) => {
   const quizId = req.params.quizId;
   try {
     const [totalQuestionsResult] = await db
-      .promise()
       .query(
         "SELECT COUNT(*) AS totalQuestions FROM Questions WHERE quizId = ?",
         [quizId]
@@ -37,14 +36,13 @@ router.get("/status/:quizId", async (req, res) => {
     const totalQuestions = totalQuestionsResult[0].totalQuestions;
 
     const [questionsAttendedResult] = await db
-      .promise()
       .query(
         "SELECT COUNT(*) AS questionsAttended FROM MarkedAnswers WHERE quizId = ?",
         [quizId]
       );
     const questionsAttended = questionsAttendedResult[0].questionsAttended;
 
-    const [correctAnswersResult] = await db.promise().query(
+    const [correctAnswersResult] = await db.query(
       `SELECT COUNT(*) AS correctAnswers
          FROM MarkedAnswers ma
          INNER JOIN Options o ON ma.selectedOptionId = o.id

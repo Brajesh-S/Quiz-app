@@ -1,0 +1,264 @@
+.quiz-app {
+  display: flex;
+  height: 100vh;
+  font-family: 'Inter', Arial, sans-serif;
+  background-color: #f5f6fa;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.sidebar {
+  width: 240px;
+  background-color: #ffffff;
+  padding: 24px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
+  border-radius: 0;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  transition: transform 0.3s ease;
+  z-index: 100;
+}
+
+.logo {
+  font-size: 28px;
+  margin-bottom: 40px;
+  color: #6366f1;
+  font-weight: 700;
+  text-align: center;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  margin-top: 20px;
+  cursor: pointer;
+  color: #6366f1;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+
+.menu-item:hover {
+  background-color: #f0f1ff;
+}
+
+.icon {
+  margin-right: 16px;
+  font-size: 18px;
+  color: #6366f1;
+}
+
+.mobile-header {
+  display: none;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 16px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 90;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.mobile-logo {
+  font-size: 24px;
+  color: #6366f1;
+  margin: 0;
+  text-align: center;
+  flex-grow: 1;
+}
+
+.menu-toggle {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.menu-toggle span {
+  display: block;
+  height: 3px;
+  width: 100%;
+  background-color: #6366f1;
+  border-radius: 3px;
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 24px;
+  overflow-y: auto;
+  max-width: 100%;
+}
+
+.header-div {
+  background-color: #ffffff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  border-radius: 16px;
+  margin-bottom: 24px;
+  padding: 24px 32px;
+  display: flex;
+  align-items: center;
+}
+
+.header-div h2 {
+  font-size: 22px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.quizzes-container {
+  width: 100%;
+  max-width: 1000px;
+}
+
+.quiz-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.quiz-card:hover {
+  border: 1px solid rgba(255, 215, 0, 0.4);
+  background-color: #fffdf5;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.quiz-card h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #333;
+}
+
+.quiz-details {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  font-size: 14px;
+  color: #666;
+}
+
+.quiz-info {
+  flex-grow: 1;
+}
+
+.solve-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  background-color: #f8f8f8;
+  border: 1px solid rgba(64, 64, 64, 0.15);
+  color: #333;
+}
+
+.solve-btn:hover {
+  background-color: #ffd700;
+  border-color: #ffd700;
+  color: #333;
+}
+
+.loading-animations {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 40px;
+}
+
+.text,
+.texts {
+  display: flex;
+  color: rgba(100, 100, 100, 0.8);
+  padding: 16px;
+  font-size: 14px;
+}
+
+.texts {
+  padding-right: 0;
+}
+
+@media (max-width: 1024px) {
+  .quizzes-container {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    transform: translateX(-100%);
+    width: 260px;
+  }
+  
+  .sidebar-open {
+    transform: translateX(0);
+  }
+  
+  .mobile-header {
+    display: flex;
+  }
+  
+  .main-content {
+    padding: 80px 16px 16px;
+  }
+  
+  .header-div {
+    padding: 20px;
+  }
+  
+  .quiz-card {
+    flex-direction: column;
+  }
+  
+  .solve-btn {
+    margin-top: 16px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-div h2 {
+    font-size: 18px;
+  }
+  
+  .quiz-card {
+    padding: 16px;
+  }
+  
+  .quiz-card h3 {
+    font-size: 16px;
+  }
+  
+  .loading-animations {
+    padding: 20px;
+  }
+}
+
+.sidebar-open + .mobile-header + .main-content::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 90;
+}

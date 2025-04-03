@@ -6,7 +6,7 @@ router.get("/:questionId", async (req, res) => {
   const questionId = req.params.questionId;
   try {
     const query = `SELECT * FROM Options WHERE questionId = ${questionId};`;
-    const [options] = await db.promise().query(query);
+    const [options] = await db.query(query);
     res.json(options);
   } catch (error) {
     console.error("Error fetching options:", error);

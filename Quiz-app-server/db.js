@@ -1,24 +1,27 @@
 const mysql = require("mysql2");
 require("dotenv").config();
 
-const db = mysql.createConnection({
+const pool = mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
+  waitForConnections: true,
+  connectionLimit: 10, 
+  queueLimit: 0
 });
+const promisePool = pool.promise();
 
-// Function to create tables
 async function createTables() {
   try {
-    await db.promise().query(`
+    await promisePool.query(`
       CREATE TABLE IF NOT EXISTS QuizTypes (
         id INT AUTO_INCREMENT PRIMARY KEY,
         type_name VARCHAR(255) NOT NULL
       );
     `);
 
-    await db.promise().query(`
+    await promisePool.query(`
       CREATE TABLE IF NOT EXISTS Quizes (
         id INT AUTO_INCREMENT PRIMARY KEY,
         quizName VARCHAR(255) NOT NULL,
@@ -30,7 +33,7 @@ async function createTables() {
       );
     `);
 
-    await db.promise().query(`
+    await promisePool.query(`
       CREATE TABLE IF NOT EXISTS Questions (
         id INT AUTO_INCREMENT PRIMARY KEY,
         quizId INT,
@@ -39,7 +42,7 @@ async function createTables() {
       );
     `);
 
-    await db.promise().query(`
+    await promisePool.query(`
       CREATE TABLE IF NOT EXISTS Options (
         id INT AUTO_INCREMENT PRIMARY KEY,
         questionId INT,
@@ -49,7 +52,7 @@ async function createTables() {
       );
     `);
 
-    await db.promise().query(`
+    await promisePool.query(`
       CREATE TABLE IF NOT EXISTS MarkedAnswers (
         id INT AUTO_INCREMENT PRIMARY KEY,
         quizId INT,
@@ -68,13 +71,15 @@ async function createTables() {
   }
 }
 
-// Connect to the database
-db.connect(async (err) => {
+pool.getConnection((err, connection) => {
   if (err) {
     console.error("Database connection error:", err);
     return;
   }
   console.log("Connected to database");
+  connection.release();
+
+  createTables().catch(err => console.error("Error creating tables:", err));
 });
 
-module.exports = db;
+module.exports = promisePool;
